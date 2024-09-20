@@ -1,35 +1,30 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
- class SecondaryButton extends StatelessWidget {
-
-  const SecondaryButton({
-    super.key, 
-    required this.text, 
-    required this.onPressed,
-  });
-
+import 'package:sizer/sizer.dart';
+import 'package:qofi_comp/constants/ui_helpers.dart';
+class SecondaryButton extends StatelessWidget {
+  const SecondaryButton({super.key, required this.text, required this.onPressed});
   final String text;
   final VoidCallback onPressed;
   
   @override
 
   Widget build(BuildContext context) {
-    return ElevatedButton( 
-      style: ElevatedButton.styleFrom(
-        minimumSize: const Size.fromHeight(54),
-        side: BorderSide(color: Color(0xFFDA2F46), width: 2),
-        backgroundColor: Colors.transparent, 
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(40.0),
-        ),
-      ),
-
+    return TextButton(
       onPressed: onPressed,
+      style: TextButton.styleFrom(
+          backgroundColor: CupertinoColors.white, 
+          minimumSize: Size(100.w, 7.3.h),
+          side: BorderSide(color: Theme.of(context).primaryColor, width: 2),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(22.sp),
+          ),
+      ),
       child: Text(
         text,
-        style: const TextStyle(
-          fontSize: 16.0, 
-          color: Color(0xFFDA2F46),
+        style: TextStyle(
+          color: Theme.of(context).primaryColor,
+          fontSize: 15.ft, 
           fontWeight: FontWeight.w700,
         ),
       ),
