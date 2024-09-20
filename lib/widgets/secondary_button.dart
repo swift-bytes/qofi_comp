@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
- class PrimaryButton extends StatelessWidget {
+ class SecondaryButton extends StatelessWidget {
 
-  const PrimaryButton({
+  const SecondaryButton({
     super.key, 
     required this.text, 
     required this.onPressed,
@@ -17,7 +17,8 @@ import 'package:flutter/material.dart';
     return ElevatedButton( 
       style: ElevatedButton.styleFrom(
         minimumSize: const Size.fromHeight(54),
-        backgroundColor: const Color(0xFFDA2F46),
+        side: BorderSide(color: Color(0xFFDA2F46), width: 2),
+        backgroundColor: Colors.transparent, 
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(40.0),
         ),
@@ -28,7 +29,7 @@ import 'package:flutter/material.dart';
         text,
         style: const TextStyle(
           fontSize: 16.0, 
-          color: Color.fromARGB(255, 255, 255, 255),
+          color: Color(0xFFDA2F46),
           fontWeight: FontWeight.w700,
         ),
       ),
