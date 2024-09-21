@@ -6,60 +6,76 @@ class SliderCards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 20.h,
+    return SizedBox(
+      height: 142 / 812 * 100.h,
       child: PageView.builder(
         itemCount: 3,
         itemBuilder: (context, index) {
           return Container(
-            padding: EdgeInsets.all(24), // 24px padding all around
+            padding: EdgeInsets.all(16.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12.0),
+              gradient: LinearGradient(
+                colors: [Color(0xFFDA2F46), Color(0xFF346DC2)],
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+              ),
+            ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start, // Align content to the left
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  '20% Off First Subscription! Use code',
-                  style: TextStyle(
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.white,
+                RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: '20% Off First Subscription!\nUse code ',
+                        style: TextStyle(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white,
+                          height: 23.4 / 18, 
+                        ),
+                      ),
+                      TextSpan(
+                        text: '00FI20',
+                        style: TextStyle(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                          height: 23.4 / 18, 
+                        ),
+                      ),
+                    ]
                   ),
                 ),
-                Text(
-                  '00FI20',
-                  style: TextStyle(
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                  ),
-                ),
+                
                 const SizedBox(height: 24),
+
                 TextButton(
                   onPressed: () {
                     // Handle button press
                   },
                   style: TextButton.styleFrom(
-                    minimumSize: Size(92, 32), // Width and height
-                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16), // Padding
+                    backgroundColor: Color(0xFF1F2125),
+                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(100),
-                        bottomLeft: Radius.circular(0),
-                        bottomRight: Radius.circular(0),
-                        topRight: Radius.circular(0),
-                      ),
+                      borderRadius: BorderRadius.circular(100.0),
                     ),
                   ),
-                  child: const Text('Order Now'),
+                  child: const Text(
+                    'Order Now',
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.w500,
+                      height: 15.6 / 12.0,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ],
             ),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.red, Colors.blue],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-            ),
+            
           );
         },
       ),
