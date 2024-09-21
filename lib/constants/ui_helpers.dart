@@ -262,7 +262,7 @@ ThemeData get lightTheme => ThemeData(
       highlightColor: Colors.grey[600],
       shadowColor: Colors.grey.withOpacity(0.15),
       primaryColor: primaryColor, // Change the primary color here
-      fontFamily: "Figtree",
+      fontFamily: "Rubik",
       primarySwatch: MaterialColor(primaryColor.value, <int, Color>{
         50: primaryColor,
         100: primaryColor,
@@ -312,7 +312,7 @@ ThemeData get lightTheme => ThemeData(
       ),
       appBarTheme: AppBarTheme(
         centerTitle: false,
-        backgroundColor: Colors.white,
+        backgroundColor: HexColor("#F1F4F9"),
         scrolledUnderElevation: 0,
         foregroundColor: Colors.white,
         titleTextStyle: TextStyle(
@@ -322,7 +322,8 @@ ThemeData get lightTheme => ThemeData(
         ),
       ),
       dividerColor: HexColor("#F2F2F2"),
-      scaffoldBackgroundColor: Colors.white,
+      
+      scaffoldBackgroundColor: HexColor('#F1F4F9'),
     );
 Map<String, dynamic> tripParamsToPayload(Map<String, dynamic> data) {
   Map<String, dynamic> filters = {};
