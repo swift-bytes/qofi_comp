@@ -5,23 +5,27 @@ import 'package:qofi_comp/widgets/auth_text_field.dart';
 import 'package:qofi_comp/widgets/basic_button.dart';
 import 'package:qofi_comp/widgets/list_card.dart';
 import 'package:qofi_comp/widgets/primary_button.dart';
+import 'package:qofi_comp/widgets/secondary_button.dart';
+import 'package:qofi_comp/widgets/form_fields.dart';
+import 'package:qofi_comp/widgets/slider_cards.dart';
 
 class Qofi {
   static Widget primaryButton({
     required String title,
     required VoidCallback onPressed,
-  }) =>
-      PrimaryButton(title: title, onPressed: onPressed);
-  static Widget listCard({
+  }) => PrimaryButton(title: title, onPressed: onPressed);
+
+  static Widget secondaryButton({
+    required String text,
     required VoidCallback onPressed,
-    required String title,
-    required String subtitle,
-  }) =>
-      ListCard(
-        onPressed: onPressed,
-        title: title,
-        subtitle: subtitle,
-      );
+  }) => SecondaryButton(text: text, onPressed: onPressed);
+  
+  static Widget formFields({
+    required String hintText,
+  }) => FormFields(hintText: hintText);
+
+  static Widget sliderCards() => SliderCards();
+
 
   static Widget basicButton({
     required VoidCallback onPressed,
