@@ -3,6 +3,8 @@ library qofi_comp;
 import 'package:flutter/cupertino.dart';
 import 'package:qofi_comp/widgets/primary_button.dart';
 import 'package:qofi_comp/widgets/secondary_button.dart';
+import 'package:qofi_comp/widgets/form_fields.dart';
+import 'package:qofi_comp/widgets/slider_cards.dart';
 
 class Qofi {
   static Widget primaryButton({
@@ -14,5 +16,11 @@ class Qofi {
     required String text,
     required VoidCallback onPressed,
   }) => SecondaryButton(text: text, onPressed: onPressed);
+  
+  static Widget formFields({
+    required String hintText,
+  }) => FormFields(hintText: hintText);
+
+  static Widget sliderCards() => SliderCards();
 
 }
