@@ -7,6 +7,7 @@ import 'package:qofi_comp/widgets/primary_button.dart';
 import 'package:qofi_comp/widgets/secondary_button.dart';
 import 'package:qofi_comp/widgets/form_fields.dart';
 import 'package:qofi_comp/widgets/slider_cards.dart';
+import 'package:qofi_comp/widgets/bullet_points.dart';
 
 class Qofi {
   static Widget primaryButton({
@@ -35,4 +36,9 @@ class Qofi {
         title: title,
       );
   static Widget authTextField({required Map e}) => AuthTextField(e: e);
+  static Widget bulletPoints({
+    required int currentIndex,
+    required int total,
+  }) => BulletPoints(currentIndex: currentIndex, total: total);
+
 }
