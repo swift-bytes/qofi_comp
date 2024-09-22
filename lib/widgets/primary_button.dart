@@ -14,7 +14,7 @@ class PrimaryButton extends StatelessWidget {
       onPressed: onPressed,
       style: TextButton.styleFrom(
           backgroundColor: Theme.of(context).primaryColor,
-          minimumSize: Size(100.w, 7.3.h),
+          minimumSize: Size(100.w, 6.6.h),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(22.sp),
           )),
