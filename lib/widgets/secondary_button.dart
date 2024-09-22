@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:qofi_comp/constants/ui_helpers.dart';
 class SecondaryButton extends StatelessWidget {
-  const SecondaryButton({super.key, required this.text, required this.onPressed});
-  final String text;
+  const SecondaryButton({super.key, required this.title, required this.onPressed});
+  final String title;
   final VoidCallback onPressed;
   
   @override
@@ -13,15 +13,15 @@ class SecondaryButton extends StatelessWidget {
     return TextButton(
       onPressed: onPressed,
       style: TextButton.styleFrom(
-          backgroundColor: CupertinoColors.white, 
-          minimumSize: Size(100.w, 7.3.h),
+          backgroundColor: Colors.transparent,
+        minimumSize: Size(100.w, 6.6.h),
           side: BorderSide(color: Theme.of(context).primaryColor, width: 2),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(22.sp),
           ),
       ),
       child: Text(
-        text,
+        title.trs(context),
         style: TextStyle(
           color: Theme.of(context).primaryColor,
           fontSize: 15.ft, 

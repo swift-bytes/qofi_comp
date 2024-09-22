@@ -1,19 +1,21 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:qofi_comp/constants/hex_color.dart';
 import 'package:qofi_comp/constants/ui_helpers.dart';
 import 'package:sizer/sizer.dart';
 
 class AuthTextField extends StatelessWidget {
-  const AuthTextField({super.key, required this.e});
+  AuthTextField({super.key, required this.e});
   final Map e;
+  final TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     if (e["type"] == "phone") {
       return Row(
         children: [
           Container(
-            width: 25.w,
+            width: 30.w,
             padding: EdgeInsets.all(0.5.w),
             decoration: BoxDecoration(
               color: Theme.of(context).cardColor,
@@ -23,15 +25,19 @@ class AuthTextField extends StatelessWidget {
             child: CountryCodePicker(
               padding: EdgeInsets.zero,
               dialogSize: Size(90.w, 80.h),
+              initialSelection: 'PK',
               boxDecoration: BoxDecoration(
                 color: Theme.of(context).scaffoldBackgroundColor,
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: const Color(0xffD6D6D6), width: 2),
               ),
+              onChanged: (value) {
+                e['onChanged']?.call("${value.dialCode}");
+              },
               dialogBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
               textStyle: TextStyle(
                 color: Theme.of(context).canvasColor,
-                fontSize: 15.ft,
+                fontSize: 14.ft,
               ),
             ),
           ),
@@ -42,15 +48,20 @@ class AuthTextField extends StatelessWidget {
             child: AuthTextField(e: {
               ...e,
               "type": "number",
+              "controller": controller,
+              "onChanged": (value) {
+                e['onChanged']?.call("$value");
+              },
             }),
           ),
         ],
       );
     }
     return TextFormField(
+      controller: e['controller'],
       style: TextStyle(
         color: Theme.of(context).canvasColor,
-        fontSize: 15.ft,
+        fontSize: 14.ft,
       ),
       onChanged: (value) {
         e['onChanged']?.call(value);
@@ -58,7 +69,10 @@ class AuthTextField extends StatelessWidget {
       obscureText: e['obscure'] ?? false,
       keyboardType: e['keyboardType'],
       obscuringCharacter: "*",
+      onTap: e['onTap'],
+      readOnly: e['readOnly'] ?? false,
       autovalidateMode: AutovalidateMode.onUnfocus,
+      validator: e['validator'],
       decoration: InputDecoration(
         errorText: e['error']?.toString().trs(context),
         hintText: e['hint']?.toString().trs(context),
@@ -67,7 +81,7 @@ class AuthTextField extends StatelessWidget {
             fontSize: 13.ft,
             fontWeight: FontWeight.w500),
         hintStyle: TextStyle(
-            color: Color(0xff878787),
+            color: HexColor("878787"),
             fontSize: 14.ft,
             fontWeight: FontWeight.w500),
         filled: true,
@@ -78,13 +92,13 @@ class AuthTextField extends StatelessWidget {
                 width: 5.5.w,
                 height: 5.5.w,
               ),
-        suffixIcon: e["suffixIcon"] == null
+        suffixIcon: e["suffix"] == null
             ? null
             : TextButton(
                 onPressed: e['onSuffixPressed'],
                 style: iconButtonStyle,
                 child: SvgPicture.asset(
-                  e["suffixIcon"],
+                  e["suffix"],
                   width: 5.5.w,
                   height: 5.5.w,
                 ),
@@ -92,10 +106,10 @@ class AuthTextField extends StatelessWidget {
         isDense: true,
         fillColor: Theme.of(context).cardColor,
         prefixIconConstraints: BoxConstraints(
-          minWidth: 14.w,
+          minWidth: 12.w,
           minHeight: 0,
         ),
-        contentPadding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.5.h),
+        contentPadding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.7.h),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.sp),
           borderSide: const BorderSide(

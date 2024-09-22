@@ -15,9 +15,9 @@ class Qofi {
   }) => PrimaryButton(title: title, onPressed: onPressed);
 
   static Widget secondaryButton({
-    required String text,
+    required String title,
     required VoidCallback onPressed,
-  }) => SecondaryButton(text: text, onPressed: onPressed);
+  }) => SecondaryButton(title: title, onPressed: onPressed);
   
   static Widget formFields({
     required String hintText,
