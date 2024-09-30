@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'hex_color.dart';
+import 'package:intl/intl.dart';
+
 extension StringExtension on dynamic {
   String trs(BuildContext context) {
     if (toString().isEmpty) {
@@ -31,11 +33,11 @@ font(num font) {
 //   ).format(val ?? "0");
 // }
 
-TextStyle homeHeadingStyle(context)=> TextStyle(
-fontSize: 17.ft,
-color: Theme.of(context).canvasColor,
-fontWeight: FontWeight.w600,
-);
+TextStyle homeHeadingStyle(context) => TextStyle(
+      fontSize: 17.ft,
+      color: Theme.of(context).canvasColor,
+      fontWeight: FontWeight.w600,
+    );
 
 extension Font on num {
   double get ft => font(this);
@@ -129,7 +131,6 @@ getNumberFromLuggageString(String? val) {
   }
 }
 
-
 ButtonStyle iconButtonStyle = TextButton.styleFrom(
   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
   padding: EdgeInsets.all(1.w),
@@ -141,16 +142,10 @@ TextStyle verifyIDTextStyle(context) => TextStyle(
     fontSize: 14.ft,
     fontWeight: FontWeight.w500);
 
-
-
-
-
 String mergeStrings(List strings) {
   List val = strings.join("").split("").toList()..sort();
   return val.join("");
 }
-
-
 
 formatDateInHours(DateTime? date) {
   final now = DateTime.now();
@@ -166,6 +161,10 @@ formatDateInHours(DateTime? date) {
   }
 }
 
+formatNumber(num? val) {
+  return NumberFormat("#,##0").format(val ?? 0);
+}
+
 Radius messageRadius = Radius.circular(20.sp);
 
 extension CapitalizeFirst on String {
@@ -173,7 +172,6 @@ extension CapitalizeFirst on String {
   String get capitalizeAll =>
       split(" ").map((e) => e.capitalizeFirst).join(" ");
 }
-
 
 getStatusColor(String? status, BuildContext context) {
   switch (status) {
@@ -241,7 +239,7 @@ ThemeData get darkTheme => ThemeData(
       canvasColor: Colors.white,
       hoverColor: HexColor("#cdfacf"),
       colorScheme: ColorScheme.fromSeed(
-        seedColor: Colors.green,
+        seedColor: primaryColor,
         shadow: Colors.grey.withOpacity(0.15),
         background: HexColor("#1a1a1a"),
         brightness: Brightness.light,
@@ -259,10 +257,15 @@ ThemeData get darkTheme => ThemeData(
     );
 ThemeData get lightTheme => ThemeData(
       useMaterial3: true,
-      highlightColor: Colors.grey[600],
+
+      secondaryHeaderColor: HexColor("#273766"),
+      unselectedWidgetColor: HexColor("#D5DDEE"),
+      
       shadowColor: Colors.grey.withOpacity(0.15),
       primaryColor: primaryColor, // Change the primary color here
       fontFamily: "Rubik",
+      indicatorColor: HexColor("#D6D6D6"),
+      disabledColor: HexColor("#E0E3EB"),
       primarySwatch: MaterialColor(primaryColor.value, <int, Color>{
         50: primaryColor,
         100: primaryColor,
@@ -276,8 +279,9 @@ ThemeData get lightTheme => ThemeData(
         900: primaryColor,
       }),
       colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.green,
+          seedColor: primaryColor,
           brightness: Brightness.light,
+          onPrimary: HexColor("2fcc71"),
           background: Colors.white,
           error: HexColor("#FF0000")),
       cardColor: Colors.white,
@@ -321,8 +325,9 @@ ThemeData get lightTheme => ThemeData(
           fontSize: 14.ft,
         ),
       ),
-      dividerColor: HexColor("#F2F2F2"),
-      
+      highlightColor: HexColor("#F1F4F9"),
+      dividerColor: HexColor("#878787"),
+
       scaffoldBackgroundColor: HexColor('#F1F4F9'),
     );
 Map<String, dynamic> tripParamsToPayload(Map<String, dynamic> data) {
@@ -352,3 +357,13 @@ Map<String, dynamic> tripParamsToPayload(Map<String, dynamic> data) {
   filters["sort"] = {"type": data["sort"], "order": data["order"]};
   return filters;
 }
+
+SizedBox vertical1_2 = SizedBox(height: 0.5.h);
+SizedBox vertical1 = SizedBox(height: 1.h);
+SizedBox vertical2 = SizedBox(height: 2.h);
+SizedBox vertical3 = SizedBox(height: 3.h);
+SizedBox vertical4 = SizedBox(height: 4.h);
+SizedBox horizontal1 = SizedBox(width: 1.w);
+SizedBox horizontal2 = SizedBox(width: 2.w);
+SizedBox horizontal3 = SizedBox(width: 3.w);
+SizedBox horizontal4 = SizedBox(width: 4.w);

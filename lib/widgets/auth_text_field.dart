@@ -13,6 +13,7 @@ class AuthTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     if (e["type"] == "phone") {
       return Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             width: 30.w,
@@ -32,7 +33,9 @@ class AuthTextField extends StatelessWidget {
                 border: Border.all(color: const Color(0xffD6D6D6), width: 2),
               ),
               onChanged: (value) {
-                e['onChanged']?.call("${value.dialCode}");
+                e['onChanged']?.call({
+                  "country_code": value.dialCode,
+                });
               },
               dialogBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
               textStyle: TextStyle(
@@ -48,9 +51,10 @@ class AuthTextField extends StatelessWidget {
             child: AuthTextField(e: {
               ...e,
               "type": "number",
-              "controller": controller,
               "onChanged": (value) {
-                e['onChanged']?.call("$value");
+                e['onChanged']?.call({
+                  "number": value,
+                });
               },
             }),
           ),
@@ -62,10 +66,13 @@ class AuthTextField extends StatelessWidget {
       style: TextStyle(
         color: Theme.of(context).canvasColor,
         fontSize: 14.ft,
+        fontWeight: e['fontWeight']
       ),
       onChanged: (value) {
         e['onChanged']?.call(value);
       },
+      maxLines: e['maxLines'] ?? 1,
+      inputFormatters: e['inputFormatters'],
       obscureText: e['obscure'] ?? false,
       keyboardType: e['keyboardType'],
       obscuringCharacter: "*",
@@ -74,6 +81,7 @@ class AuthTextField extends StatelessWidget {
       autovalidateMode: AutovalidateMode.onUnfocus,
       validator: e['validator'],
       decoration: InputDecoration(
+        errorMaxLines: 2,
         errorText: e['error']?.toString().trs(context),
         hintText: e['hint']?.toString().trs(context),
         errorStyle: TextStyle(
@@ -83,8 +91,8 @@ class AuthTextField extends StatelessWidget {
         hintStyle: TextStyle(
             color: HexColor("878787"),
             fontSize: 14.ft,
-            fontWeight: FontWeight.w500),
-        filled: true,
+            fontWeight:e['fontWeight']?? FontWeight.w500),
+        filled: e['filled']??true,
         prefixIcon: e["prefix"] == null
             ? null
             : SvgPicture.asset(
@@ -94,7 +102,7 @@ class AuthTextField extends StatelessWidget {
               ),
         suffixIcon: e["suffix"] == null
             ? null
-            : TextButton(
+            :e['suffix'] is Widget?e['suffix']: TextButton(
                 onPressed: e['onSuffixPressed'],
                 style: iconButtonStyle,
                 child: SvgPicture.asset(
