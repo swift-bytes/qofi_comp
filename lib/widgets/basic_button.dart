@@ -15,7 +15,7 @@ class BasicButton extends StatelessWidget {
           title.trs(context),
           style:titleStyle?? TextStyle(
             color: Theme.of(context).canvasColor,
-            fontSize: 15.ft,
+            fontSize: 14.5.ft,
             fontWeight: FontWeight.w400
           ),
         ));

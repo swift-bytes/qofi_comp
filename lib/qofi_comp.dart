@@ -1,6 +1,7 @@
 library qofi_comp;
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:qofi_comp/widgets/auth_text_field.dart';
 import 'package:qofi_comp/widgets/basic_button.dart';
 import 'package:qofi_comp/widgets/custom_otp.dart';
@@ -14,17 +15,35 @@ import 'package:qofi_comp/widgets/bullet_points.dart';
 class Qofi {
   static Widget primaryButton({
     required String title,
-    bool loading=false,
-    bool success=false,
+    bool loading = false,
+    bool success = false,
     required VoidCallback onPressed,
+    TextStyle? titleStyle,
+    ButtonStyle? buttonStyle,
   }) =>
-      PrimaryButton(title: title, onPressed: onPressed,loading: loading,success: success,);
+      PrimaryButton(
+        title: title,
+        onPressed: onPressed,
+        loading: loading,
+        success: success,
+        titleStyle: titleStyle,
+        buttonStyle: buttonStyle,
+      );
 
   static Widget secondaryButton({
     required String title,
     required VoidCallback onPressed,
+    TextStyle? titleStyle,
+    bool loading = false,
+    ButtonStyle? buttonStyle,
   }) =>
-      SecondaryButton(title: title, onPressed: onPressed);
+      SecondaryButton(
+        title: title,
+        onPressed: onPressed,
+        loading: loading,
+        titleStyle: titleStyle,
+        buttonStyle: buttonStyle,
+      );
 
   static Widget formFields({
     required String hintText,
@@ -36,19 +55,22 @@ class Qofi {
   static Widget basicButton({
     required VoidCallback onPressed,
     required String title,
-     TextStyle? titleStyle,
+    TextStyle? titleStyle,
   }) =>
       BasicButton(
         onPressed: onPressed,
         title: title,
         titleStyle: titleStyle,
       );
+
   static Widget authTextField({required Map e}) => AuthTextField(e: e);
+
   static Widget bulletPoints({
     required int currentIndex,
     required int total,
   }) =>
       BulletPoints(currentIndex: currentIndex, total: total);
+
   static Widget otpInputWidget({
     required int length,
     required Function(String) onCompleted,
@@ -63,6 +85,13 @@ class Qofi {
   static Widget roundBorderedButton({
     required VoidCallback onPressed,
     required String icon,
+    Color? iconColor,
+    double size = 5,
   }) =>
-      RoundBorderedButton(onPressed: onPressed, icon: icon);
+      RoundBorderedButton(
+        onPressed: onPressed,
+        iconColor: iconColor,
+        icon: icon,
+        size: size,
+      );
 }

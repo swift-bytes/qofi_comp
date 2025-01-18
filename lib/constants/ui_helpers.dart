@@ -171,12 +171,23 @@ extension CapitalizeFirst on String {
   String get capitalizeFirst => "${this[0].toUpperCase()}${substring(1)}";
   String get capitalizeAll =>
       split(" ").map((e) => e.capitalizeFirst).join(" ");
+  String get mask => maskCardNumber(this);
+}
+
+String maskCardNumber(String cardNumber) {
+  if (cardNumber.length > 4) {
+    String lastFourDigits = cardNumber.substring(cardNumber.length - 4);
+    return '**** **** **** $lastFourDigits';
+  } else {
+    return cardNumber;
+  }
 }
 
 getStatusColor(String? status, BuildContext context) {
   switch (status) {
     case "requested":
     case "active":
+    case "processing":
       return {
         "color": HexColor("faac00"),
         "containerColor": HexColor("faac00").withOpacity(0.2)
@@ -206,130 +217,13 @@ getStatusColor(String? status, BuildContext context) {
   }
 }
 
-Color primaryColor = HexColor("#DA2F46");
+BoxDecoration cardDecor(context, {Color? backgroundColor}) => BoxDecoration(
+    color: backgroundColor,
+    borderRadius: BorderRadius.circular(13.sp),
+    border: Border.all(
+      color: Theme.of(context).indicatorColor,
+    ));
 
-ThemeData get darkTheme => ThemeData(
-      useMaterial3: true,
-      shadowColor: Colors.grey.withOpacity(0.15),
-      highlightColor: Colors.grey,
-      primaryColor: primaryColor,
-      fontFamily: "Figtree",
-      dividerColor: Colors.grey[800],
-      textTheme: TextTheme(
-        bodyLarge: TextStyle(
-          color: Colors.white,
-        ),
-        bodyMedium: TextStyle(
-          color: Colors.white,
-        ),
-      ),
-      primarySwatch: MaterialColor(primaryColor.value, <int, Color>{
-        50: primaryColor,
-        100: primaryColor,
-        200: primaryColor,
-        300: primaryColor,
-        400: primaryColor,
-        500: primaryColor,
-        600: primaryColor,
-        700: primaryColor,
-        800: primaryColor,
-        900: primaryColor,
-      }),
-      disabledColor: Colors.grey.withOpacity(0.6),
-      canvasColor: Colors.white,
-      hoverColor: HexColor("#cdfacf"),
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: primaryColor,
-        shadow: Colors.grey.withOpacity(0.15),
-        background: HexColor("#1a1a1a"),
-        brightness: Brightness.light,
-      ),
-      appBarTheme: AppBarTheme(
-        centerTitle: false,
-        foregroundColor: HexColor("#1a1a1a"),
-        titleTextStyle: TextStyle(
-          color: Colors.white,
-          fontSize: 14.ft,
-        ),
-      ),
-      cardColor: Colors.black,
-      scaffoldBackgroundColor: HexColor("#1a1a1a"),
-    );
-ThemeData get lightTheme => ThemeData(
-      useMaterial3: true,
-
-      secondaryHeaderColor: HexColor("#273766"),
-      unselectedWidgetColor: HexColor("#D5DDEE"),
-      
-      shadowColor: Colors.grey.withOpacity(0.15),
-      primaryColor: primaryColor, // Change the primary color here
-      fontFamily: "Rubik",
-      indicatorColor: HexColor("#D6D6D6"),
-      disabledColor: HexColor("#E0E3EB"),
-      primarySwatch: MaterialColor(primaryColor.value, <int, Color>{
-        50: primaryColor,
-        100: primaryColor,
-        200: primaryColor,
-        300: primaryColor,
-        400: primaryColor,
-        500: primaryColor,
-        600: primaryColor,
-        700: primaryColor,
-        800: primaryColor,
-        900: primaryColor,
-      }),
-      colorScheme: ColorScheme.fromSeed(
-          seedColor: primaryColor,
-          brightness: Brightness.light,
-          onPrimary: HexColor("2fcc71"),
-          background: Colors.white,
-          error: HexColor("#FF0000")),
-      cardColor: Colors.white,
-      canvasColor: HexColor("#1a1a1a"),
-      textTheme: TextTheme(
-        bodyLarge: TextStyle(
-          color: HexColor("#1a1a1a"),
-        ),
-        bodyMedium: TextStyle(
-          color: HexColor("#1a1a1a"),
-        ),
-      ),
-      hoverColor: HexColor("#cdfacf"),
-      inputDecorationTheme: InputDecorationTheme(
-        filled: true,
-        fillColor: Colors.white,
-        isDense: true,
-        hintStyle: TextStyle(
-          color: HexColor("#f0f2f5"),
-          fontSize: 13.ft,
-        ),
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: 4.w,
-          vertical: 0.6.h,
-        ),
-        enabledBorder: homeTextFieldBorder.copyWith(
-          borderRadius: BorderRadius.zero,
-        ),
-        focusedBorder: homeTextFieldBorder.copyWith(
-          borderRadius: BorderRadius.zero,
-        ),
-      ),
-      appBarTheme: AppBarTheme(
-        centerTitle: false,
-        backgroundColor: HexColor("#F1F4F9"),
-        scrolledUnderElevation: 0,
-        foregroundColor: Colors.white,
-        titleTextStyle: TextStyle(
-          fontFamily: "Figtree",
-          color: Colors.black,
-          fontSize: 14.ft,
-        ),
-      ),
-      highlightColor: HexColor("#F1F4F9"),
-      dividerColor: HexColor("#878787"),
-
-      scaffoldBackgroundColor: HexColor('#F1F4F9'),
-    );
 Map<String, dynamic> tripParamsToPayload(Map<String, dynamic> data) {
   Map<String, dynamic> filters = {};
   filters['filters'] = {
@@ -367,3 +261,67 @@ SizedBox horizontal1 = SizedBox(width: 1.w);
 SizedBox horizontal2 = SizedBox(width: 2.w);
 SizedBox horizontal3 = SizedBox(width: 3.w);
 SizedBox horizontal4 = SizedBox(width: 4.w);
+
+extension SizerExt on num {
+  Widget get high => SizedBox(
+        height: h,
+      );
+  Widget get wide => SizedBox(
+        width: w,
+      );
+}
+
+extension Validator on dynamic {
+  bool get isValidEmail {
+    return RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+        .hasMatch(this.toString());
+  }
+
+  bool get isValidPassword {
+    return RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$')
+        .hasMatch(this.toString());
+  }
+}
+
+getOrderStatusColor(String? status, BuildContext context) {
+  switch (status?.toLowerCase()) {
+    case "processing":
+      return {
+        "color": HexColor("faac00"),
+        "containerColor": HexColor("faac00").withOpacity(0.2)
+      };
+    case "completed":
+    case "delivered":
+      return {
+        "color": HexColor("#0CB44F"),
+        "containerColor": HexColor("#0CB44F").withOpacity(0.1)
+      };
+    default:
+      return {
+        "color": Theme.of(context).primaryColor,
+        "containerColor": Theme.of(context).cardColor
+      };
+  }
+}
+
+extension Snack on String {
+  void showSnackBar(Color color, BuildContext context, {EdgeInsets? margin}) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      margin: margin,
+      behavior: SnackBarBehavior.floating,
+      content: Text(
+        this,
+        maxLines: 3,
+      ),
+      backgroundColor: color,
+    ));
+  }
+}
+
+extension Format on dynamic {
+  String formatCurrency({int decimal = 1,String? currency}) => NumberFormat.currency(
+        locale: 'en_US',
+        symbol: currency??"",
+        decimalDigits: decimal,
+      ).format(num.tryParse("${this ?? 0}")??0);
+}

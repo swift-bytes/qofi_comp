@@ -15,7 +15,7 @@ class AuthTextField extends StatelessWidget {
       return Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
+         if(false) ...[Container(
             width: 30.w,
             padding: EdgeInsets.all(0.5.w),
             decoration: BoxDecoration(
@@ -26,7 +26,7 @@ class AuthTextField extends StatelessWidget {
             child: CountryCodePicker(
               padding: EdgeInsets.zero,
               dialogSize: Size(90.w, 80.h),
-              initialSelection: 'PK',
+              initialSelection: e['initialSelection'] ?? 'PK',
               boxDecoration: BoxDecoration(
                 color: Theme.of(context).scaffoldBackgroundColor,
                 borderRadius: BorderRadius.circular(10),
@@ -39,14 +39,14 @@ class AuthTextField extends StatelessWidget {
               },
               dialogBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
               textStyle: TextStyle(
-                color: Theme.of(context).canvasColor,
-                fontSize: 14.ft,
-              ),
+                  color: Theme.of(context).canvasColor,
+                  fontSize: 14.ft,
+                  fontWeight: FontWeight.w500),
             ),
           ),
           SizedBox(
             width: 2.w,
-          ),
+          )],
           Expanded(
             child: AuthTextField(e: {
               ...e,
@@ -56,18 +56,83 @@ class AuthTextField extends StatelessWidget {
                   "number": value,
                 });
               },
+              "controller": e['controller'],
             }),
           ),
         ],
+      );
+    } else if (e['type'] == "dropdown") {
+      return DropdownButtonFormField(
+        icon: SvgPicture.asset("assets/svgs/arrow-down.svg",
+            color: Theme.of(context).dividerColor),
+        isDense: true,
+        dropdownColor: Theme.of(context).cardColor,
+        elevation: 0,
+        decoration: InputDecoration(
+          errorMaxLines: 2,
+          prefixIconConstraints: BoxConstraints(maxHeight: 0, maxWidth: 0),
+          suffixIconConstraints: BoxConstraints(maxHeight: 0, maxWidth: 0),
+          errorText: e['error']?.toString().trs(context),
+          hintText: e['hint']?.toString().trs(context),
+          errorStyle: TextStyle(
+              color: Theme.of(context).colorScheme.error,
+              fontSize: 13.ft,
+              fontWeight: FontWeight.w500),
+          hintStyle: TextStyle(
+              color: HexColor("878787"),
+              fontSize: 14.ft,
+              fontWeight: FontWeight.w500),
+          filled: e['filled'] ?? true,
+          isDense: true,
+          isCollapsed: true,
+          fillColor: Theme.of(context).cardColor,
+          contentPadding:
+              EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.7.h),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12.sp),
+            borderSide: const BorderSide(
+              color: Color(0xffD6D6D6),
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12.sp),
+            borderSide: const BorderSide(
+              color: Color(0xffD6D6D6),
+            ),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12.sp),
+            borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.error,
+            ),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12.sp),
+            borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.error,
+            ),
+          ),
+        ),
+        value: e['value'],
+        items: List.from(e['items'].map<DropdownMenuItem>((value) {
+          return DropdownMenuItem(
+            value: "${value['id']}",
+            child: Text("${value['name']}",
+                style: TextStyle(fontWeight: FontWeight.normal)),
+          );
+        })),
+        padding: EdgeInsets.zero,
+        onChanged: (val) {
+          e['onChanged']?.call(val);
+        },
       );
     }
     return TextFormField(
       controller: e['controller'],
       style: TextStyle(
-        color: Theme.of(context).canvasColor,
-        fontSize: 14.ft,
-        fontWeight: e['fontWeight']
-      ),
+          color: Theme.of(context).canvasColor,
+          fontSize: 14.ft,
+          fontWeight: e['fontWeight']),
       onChanged: (value) {
         e['onChanged']?.call(value);
       },
@@ -79,7 +144,13 @@ class AuthTextField extends StatelessWidget {
       onTap: e['onTap'],
       readOnly: e['readOnly'] ?? false,
       autovalidateMode: AutovalidateMode.onUnfocus,
-      validator: e['validator'],
+      validator: e['validator'] ??
+          (val) {
+            if (e['required'] == true && (val?.isEmpty ?? true)) {
+              return "This field is required";
+            }
+            return null;
+          },
       decoration: InputDecoration(
         errorMaxLines: 2,
         errorText: e['error']?.toString().trs(context),
@@ -91,8 +162,8 @@ class AuthTextField extends StatelessWidget {
         hintStyle: TextStyle(
             color: HexColor("878787"),
             fontSize: 14.ft,
-            fontWeight:e['fontWeight']?? FontWeight.w500),
-        filled: e['filled']??true,
+            fontWeight: e['fontWeight'] ?? FontWeight.w500),
+        filled: e['filled'] ?? true,
         prefixIcon: e["prefix"] == null
             ? null
             : SvgPicture.asset(
@@ -102,15 +173,17 @@ class AuthTextField extends StatelessWidget {
               ),
         suffixIcon: e["suffix"] == null
             ? null
-            :e['suffix'] is Widget?e['suffix']: TextButton(
-                onPressed: e['onSuffixPressed'],
-                style: iconButtonStyle,
-                child: SvgPicture.asset(
-                  e["suffix"],
-                  width: 5.5.w,
-                  height: 5.5.w,
-                ),
-              ),
+            : e['suffix'] is Widget
+                ? e['suffix']
+                : TextButton(
+                    onPressed: e['onSuffixPressed'],
+                    style: iconButtonStyle,
+                    child: SvgPicture.asset(
+                      e["suffix"],
+                      width: 5.5.w,
+                      height: 5.5.w,
+                    ),
+                  ),
         isDense: true,
         fillColor: Theme.of(context).cardColor,
         prefixIconConstraints: BoxConstraints(

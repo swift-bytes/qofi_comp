@@ -71,7 +71,7 @@ class _OtpInputWidgetState extends State<OtpInputWidget> {
             controller: controllers[index],
             focusNode: focusNodes[index],
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 22.ft,fontWeight: FontWeight.w600,
+            style: TextStyle(fontSize: 22.ft,fontWeight: FontWeight.w500,
             fontFamily: Theme.of(context).textTheme.bodyLarge?.fontFamily
             ),
             keyboardType: TextInputType.number,
