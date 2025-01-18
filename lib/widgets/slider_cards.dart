@@ -12,9 +12,9 @@ class SliderCards extends StatelessWidget {
         itemCount: 3,
         itemBuilder: (context, index) {
           return Container(
-            padding: EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(4.w),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12.0),
+              borderRadius: BorderRadius.circular(8.sp),
               gradient: LinearGradient(
                 colors: [Color(0xFFDA2F46), Color(0xFF346DC2)],
                 begin: Alignment.centerLeft,
