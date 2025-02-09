@@ -1,26 +1,20 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:qofi_comp/constants/ui_helpers.dart';
-import 'package:sizer/sizer.dart';
-
-import '../constants/hex_color.dart';
-
-class OtpInputWidget extends StatefulWidget {
+part of 'package:qofi_comp/qofi_comp.dart';
+class _OtpInputWidget extends StatefulWidget {
   final int length;
   final Function(String) onCompleted;
   final double? boxWidth;
 
-  const OtpInputWidget({
+  const _OtpInputWidget({
     super.key,
     this.length = 4,
     required this.onCompleted,
     this.boxWidth,
   });
   @override
-  State<StatefulWidget> createState() => _OtpInputWidgetState();
+  State<StatefulWidget> createState() => __OtpInputWidgetState();
 }
 
-class _OtpInputWidgetState extends State<OtpInputWidget> {
+class __OtpInputWidgetState extends State<_OtpInputWidget> {
   List<TextEditingController> controllers = [];
   List<FocusNode> focusNodes = [];
 

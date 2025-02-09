@@ -1,12 +1,7 @@
-import 'package:country_code_picker/country_code_picker.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:qofi_comp/constants/hex_color.dart';
-import 'package:qofi_comp/constants/ui_helpers.dart';
-import 'package:sizer/sizer.dart';
 
-class AuthTextField extends StatelessWidget {
-  AuthTextField({super.key, required this.e});
+part of 'package:qofi_comp/qofi_comp.dart';
+class _AuthTextField extends StatelessWidget {
+  _AuthTextField({super.key, required this.e});
   final Map e;
   final TextEditingController controller = TextEditingController();
   @override
@@ -48,7 +43,7 @@ class AuthTextField extends StatelessWidget {
             width: 2.w,
           )],
           Expanded(
-            child: AuthTextField(e: {
+            child: _AuthTextField(e: {
               ...e,
               "type": "number",
               "onChanged": (value) {
@@ -61,7 +56,8 @@ class AuthTextField extends StatelessWidget {
           ),
         ],
       );
-    } else if (e['type'] == "dropdown") {
+    }
+    else if (e['type'] == "dropdown") {
       return DropdownButtonFormField(
         icon: SvgPicture.asset("assets/svgs/arrow-down.svg",
             color: Theme.of(context).dividerColor),

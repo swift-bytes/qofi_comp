@@ -325,3 +325,14 @@ extension Format on dynamic {
         decimalDigits: decimal,
       ).format(num.tryParse("${this ?? 0}")??0);
 }
+
+priceAfterDiscount(price, Map discount) {
+  price = num.parse(price.toString());
+  if (discount.isEmpty) {
+    return price;
+  }
+  if (discount['type'] == "percent") {
+    return price - (price * discount['amount'] / 100);
+  }
+  return price - discount['amount'];
+}
