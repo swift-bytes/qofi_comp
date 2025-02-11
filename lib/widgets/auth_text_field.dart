@@ -7,9 +7,7 @@ class _AuthTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     InputBorder outlineInputBorder = e['border'] == "none"
-        ? const OutlineInputBorder(
-      borderSide: BorderSide.none
-    )
+        ? const OutlineInputBorder(borderSide: BorderSide.none)
         : OutlineInputBorder(
             borderRadius: BorderRadius.circular(12.sp),
             borderSide: BorderSide(
