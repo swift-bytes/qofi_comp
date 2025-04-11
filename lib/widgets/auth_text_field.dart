@@ -145,7 +145,7 @@ class _AuthTextField extends StatelessWidget {
       obscuringCharacter: "*",
       onTap: e['onTap'],
       readOnly: e['readOnly'] ?? false,
-      autovalidateMode: AutovalidateMode.onUnfocus,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: e['validator'] ??
           (val) {
             if (e['required'] == true && (val?.isEmpty ?? true)) {
