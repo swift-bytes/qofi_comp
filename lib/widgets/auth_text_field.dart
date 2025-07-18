@@ -71,6 +71,9 @@ class _AuthTextField extends StatelessWidget {
       );
     } else if (e['type'] == "dropdown") {
       return DropdownButtonFormField(
+        hint: e['hintWidget'] as Widget?
+            ?? Text(e['hint'], style: e['hintStyle'] as TextStyle?),
+        style: e['style'] as TextStyle?,
         icon: SvgPicture.asset("assets/svgs/arrow-down.svg",
             color: Theme.of(context).dividerColor),
         isDense: true,
@@ -88,7 +91,7 @@ class _AuthTextField extends StatelessWidget {
               fontSize: 13.ft,
               fontWeight: FontWeight.w500),
           hintStyle: TextStyle(
-              color: Theme.of(context).canvasColor,
+              color: HexColor("#b0aeae"),
               fontSize: 14.ft,
               fontWeight: FontWeight.w500),
           filled: e['filled'] ?? true,
@@ -162,7 +165,7 @@ class _AuthTextField extends StatelessWidget {
             fontSize: 13.ft,
             fontWeight: FontWeight.w500),
         hintStyle: TextStyle(
-            color: HexColor("878787"),
+            color: HexColor("#b0aeae"),
             fontSize: 14.ft,
             fontWeight: e['fontWeight'] ?? FontWeight.w500),
         filled: e['filled'] ?? true,
